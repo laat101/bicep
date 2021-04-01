@@ -33,7 +33,7 @@ Some background information and screenshots can be found [on this blogpost](http
 
 ## Files
 
-[AA_Modules_Bicep.ps1](automatAA_Modules_Bicep.ps1): Main PowerShell script.
+[AA_Modules_Bicep.ps1](AA_Modules_Bicep.ps1): Main PowerShell script.
 
 [Modules_example.txt](Modules_example.txt): Example file for modulenames.
 
