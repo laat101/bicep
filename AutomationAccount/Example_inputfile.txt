@@ -1,0 +1,10 @@
+Az.Accounts
+Az.Compute
+Az.Network
+Az.Resources
+Az.Storage
+Az.DesktopVirtualization
+Az.Automation
+Az.Profile
+Az.Insights
+Az.ResourceGraph

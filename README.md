@@ -1,2 +1,0 @@
-# bicep
-Community bicep repo

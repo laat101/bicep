@@ -1,0 +1,183 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]"
+    },
+    "AutomationAccountName": {
+      "type": "string",
+      "defaultValue": "Automation"
+    }
+  },
+  "functions": [],
+  "resources": [
+    {
+      "type": "Microsoft.Automation/automationAccounts",
+      "apiVersion": "2020-01-13-preview",
+      "name": "[parameters('AutomationAccountName')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "sku": {
+          "name": "Basic"
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "apiVersion": "2020-01-13-preview",
+      "name": "[format('{0}/Az.Compute', parameters('AutomationAccountName'))]",
+      "properties": {
+        "contentLink": {
+          "uri": "https://www.powershellgallery.com/api/v2/package/Az.Compute/4.10.0",
+          "version": "4.10.0"
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', parameters('AutomationAccountName'))]",
+        "[resourceId('Microsoft.Automation/automationAccounts/modules', split(format('{0}/Az.Accounts', parameters('AutomationAccountName')), '/')[0], split(format('{0}/Az.Accounts', parameters('AutomationAccountName')), '/')[1])]"
+      ]
+    },
+    {
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "apiVersion": "2020-01-13-preview",
+      "name": "[format('{0}/Az.Network', parameters('AutomationAccountName'))]",
+      "properties": {
+        "contentLink": {
+          "uri": "https://www.powershellgallery.com/api/v2/package/Az.Network/4.7.0",
+          "version": "4.7.0"
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', parameters('AutomationAccountName'))]",
+        "[resourceId('Microsoft.Automation/automationAccounts/modules', split(format('{0}/Az.Accounts', parameters('AutomationAccountName')), '/')[0], split(format('{0}/Az.Accounts', parameters('AutomationAccountName')), '/')[1])]"
+      ]
+    },
+    {
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "apiVersion": "2020-01-13-preview",
+      "name": "[format('{0}/Az.Accounts', parameters('AutomationAccountName'))]",
+      "properties": {
+        "contentLink": {
+          "uri": "https://www.powershellgallery.com/api/v2/package/Az.Accounts/2.2.7",
+          "version": "2.2.7"
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', parameters('AutomationAccountName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "apiVersion": "2020-01-13-preview",
+      "name": "[format('{0}/Az.Resources', parameters('AutomationAccountName'))]",
+      "properties": {
+        "contentLink": {
+          "uri": "https://www.powershellgallery.com/api/v2/package/Az.Resources/3.4.0",
+          "version": "3.4.0"
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', parameters('AutomationAccountName'))]",
+        "[resourceId('Microsoft.Automation/automationAccounts/modules', split(format('{0}/Az.Accounts', parameters('AutomationAccountName')), '/')[0], split(format('{0}/Az.Accounts', parameters('AutomationAccountName')), '/')[1])]"
+      ]
+    },
+    {
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "apiVersion": "2020-01-13-preview",
+      "name": "[format('{0}/Az.Storage', parameters('AutomationAccountName'))]",
+      "properties": {
+        "contentLink": {
+          "uri": "https://www.powershellgallery.com/api/v2/package/Az.Storage/3.5.0",
+          "version": "3.5.0"
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', parameters('AutomationAccountName'))]",
+        "[resourceId('Microsoft.Automation/automationAccounts/modules', split(format('{0}/Az.Accounts', parameters('AutomationAccountName')), '/')[0], split(format('{0}/Az.Accounts', parameters('AutomationAccountName')), '/')[1])]"
+      ]
+    },
+    {
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "apiVersion": "2020-01-13-preview",
+      "name": "[format('{0}/Az.DesktopVirtualization', parameters('AutomationAccountName'))]",
+      "properties": {
+        "contentLink": {
+          "uri": "https://www.powershellgallery.com/api/v2/package/Az.DesktopVirtualization/2.1.1",
+          "version": "2.1.1"
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', parameters('AutomationAccountName'))]",
+        "[resourceId('Microsoft.Automation/automationAccounts/modules', split(format('{0}/Az.Accounts', parameters('AutomationAccountName')), '/')[0], split(format('{0}/Az.Accounts', parameters('AutomationAccountName')), '/')[1])]"
+      ]
+    },
+    {
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "apiVersion": "2020-01-13-preview",
+      "name": "[format('{0}/Az.Profile', parameters('AutomationAccountName'))]",
+      "properties": {
+        "contentLink": {
+          "uri": "https://www.powershellgallery.com/api/v2/package/Az.Profile/0.7.0",
+          "version": "0.7.0"
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', parameters('AutomationAccountName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "apiVersion": "2020-01-13-preview",
+      "name": "[format('{0}/Az.Automation', parameters('AutomationAccountName'))]",
+      "properties": {
+        "contentLink": {
+          "uri": "https://www.powershellgallery.com/api/v2/package/Az.Automation/1.5.2",
+          "version": "1.5.2"
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', parameters('AutomationAccountName'))]",
+        "[resourceId('Microsoft.Automation/automationAccounts/modules', split(format('{0}/Az.Accounts', parameters('AutomationAccountName')), '/')[0], split(format('{0}/Az.Accounts', parameters('AutomationAccountName')), '/')[1])]"
+      ]
+    },
+    {
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "apiVersion": "2020-01-13-preview",
+      "name": "[format('{0}/Az.Insights', parameters('AutomationAccountName'))]",
+      "properties": {
+        "contentLink": {
+          "uri": "https://www.powershellgallery.com/api/v2/package/Az.Insights/0.7.0",
+          "version": "0.7.0"
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', parameters('AutomationAccountName'))]",
+        "[resourceId('Microsoft.Automation/automationAccounts/modules', split(format('{0}/Az.Profile', parameters('AutomationAccountName')), '/')[0], split(format('{0}/Az.Profile', parameters('AutomationAccountName')), '/')[1])]"
+      ]
+    },
+    {
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "apiVersion": "2020-01-13-preview",
+      "name": "[format('{0}/Az.ResourceGraph', parameters('AutomationAccountName'))]",
+      "properties": {
+        "contentLink": {
+          "uri": "https://www.powershellgallery.com/api/v2/package/Az.ResourceGraph/0.8.0",
+          "version": "0.8.0"
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', parameters('AutomationAccountName'))]",
+        "[resourceId('Microsoft.Automation/automationAccounts/modules', split(format('{0}/Az.Accounts', parameters('AutomationAccountName')), '/')[0], split(format('{0}/Az.Accounts', parameters('AutomationAccountName')), '/')[1])]"
+      ]
+    }
+  ],
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.3.126.58533",
+      "templateHash": "16240935971754163295"
+    }
+  }
+}
